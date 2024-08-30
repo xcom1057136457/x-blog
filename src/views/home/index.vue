@@ -7,6 +7,17 @@ defineOptions({
   name: 'Home',
 })
 
+const router = useRouter()
+
+// 点击菜单
+function handleClickMenu(item: any) {
+  if (item.isLink) {
+    window.open(item.path)
+    return
+  }
+  router.push(item.path)
+}
+
 function generateTypedText() {
   new Typed('#typed-text', {
     strings: ['I Hope You Can Happy Everyday And Enjoy Yourself Life !'],
@@ -36,15 +47,14 @@ onMounted(() => {
     <div class="w-[400px] h-0 border-0 border-t border-dashed border-white/40 mt-12 mb-14" />
 
     <div class="flex gap-x-12">
-      <a
+      <div
         v-for="item in menuList"
         :key="item.path"
         class="cursor-pointer text-base text-white/80 font-semibold hover:text-white transition-all"
-        :href="item.path"
-        :target="item.label === 'Github' ? '_blank' : ''"
+        @click="handleClickMenu(item)"
       >
         {{ item.label }}
-      </a>
+      </div>
     </div>
   </div>
 </template>
